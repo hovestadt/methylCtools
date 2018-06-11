@@ -81,6 +81,11 @@ COMMENTS:
 - please do not hesitate to send comments, bug reports or feature requests.
 
 
+CITATION:
+
+V Hovestadt, DTW Jones, S Picelli, W Wang, M Kool, PA Northcott, et al. Decoding the regulatory landscape of medulloblastoma using DNA methylation sequencing. Nature 510 (7506), 537-541 135, 2014
+
+
 
 REFERENCES:
 

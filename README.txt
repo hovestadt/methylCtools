@@ -51,10 +51,9 @@ SYNOPSIS:
 
 - perfomed for every sample (processing of sequencing reads):
 
-3a)  methylCtools fqconv -1 reads1.fq reads1.conv.fq
-3b)  methylCtools fqconv -2 reads2.fq reads2.conv.fq
+3)   methylCtools fqconv -1 reads1.fq -2 reads2.fq reads.conv.fq
 
-4)   bwa mem -M reference.conv.fa reads1.conv.fq reads2.conv.fq | samtools view -Sb - > reads.conv.bam
+4)   bwa mem -p -M reference.conv.fa reads.conv.fq | samtools view -Sb - > reads.conv.bam
 
 5a)  methylCtools bconv reads.conv.bam - | samtools sort - reads
 5b)  samtools index reads.bam

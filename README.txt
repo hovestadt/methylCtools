@@ -44,7 +44,7 @@ SYNOPSIS:
 - performed once (generation of indexes):
 
 1a)  methylCtools fapos reference.fa - | bgzip > reference.pos.gz
-1b)  tabix -s 1 -b 2 -e 2 positions.pos.gz
+1b)  tabix -s 1 -b 2 -e 2 reference.pos.gz
 
 2a)  methylCtools faconv reference.fa reference.conv.fa
 2b)  bwa index -a bwtsw reference.conv.fa

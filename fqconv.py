@@ -28,6 +28,7 @@
 def mod_fqconv(sysargv):
 	import sys
 	import argparse
+	import re
 	import gzip
 	import datetime
 	def nicetime(): return datetime.datetime.now().strftime("[fqconv %Y-%m-%d %H:%M:%S]")

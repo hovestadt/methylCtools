@@ -2,8 +2,8 @@
 
 #######################################
 # methylCtools bconv
-# v1.0.0
-# 10 june 2018
+# v1.1.0
+# 26 march 2022
 #
 # volker hovestadt
 # developed at the german cancer research center, 2011-2015
@@ -85,15 +85,13 @@ def mod_bconv(sysargv):
 		return read		
 		
 	def convert(p, s, r):													# p: conversion positions, s: sequence, r: is_reverse
-		pp = re.split("[C,G]", p)
-		if r: pp.reverse()
-		pi = 0
-		for i in pp[:-1]:
-			if i == "": i = 0
-			else: i = int(i)
-			pi += i+1	
-			if s[pi-1] == "T": s = s[:pi-1] + "C" + s[pi:]
-			elif s[pi-1] == "A": s = s[:pi-1] + "G" + s[pi:]
+		pp = bin(int(p, 16))[2:]
+		pp = "0" * (len(s)-len(p)) + pp
+		if r: pp = pp[::-1]
+		for i in re.finditer("1", pp):
+			pi = i.start()
+			if s[pi] == "T": s = s[:pi] + "C" + s[pi+1:]
+			elif s[pi] == "A": s = s[:pi] + "G" + s[pi+1:]
 			else: sys.exit("methylCtools bconv: error: unexpected conversion")
  		return s
 

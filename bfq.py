@@ -2,8 +2,8 @@
 
 #######################################
 # methylCtools bfq
-# v1.0.0
-# 10 june 2018
+# v1.1.0
+# 26 march 2022
 #
 # volker hovestadt
 # developed at the german cancer research center, 2011-2015

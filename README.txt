@@ -1,8 +1,8 @@
 program     methylCtools
 purpose     analysis of whole-genome bisulfite sequencing data
 
-version     1.0.0
-date        10 june 2018
+version     1.1.0
+date        26 march 2022
 author      volker hovestadt
 institute   developed at the german cancer research center (dkfz), 2011-2015
 contact     methylctools@hovestadt.bio

@@ -2,8 +2,8 @@
 
 #######################################
 # methylCtools fqconv
-# v1.0.0
-# 10 june 2018
+# v1.1.0
+# 26 march 2022
 #
 # volker hovestadt
 # developed at the german cancer research center, 2011-2015
@@ -20,10 +20,9 @@
 # define both ends to create an interleaved output file (bwa-mem compatible).
 #
 # read ids are trimmed to the first occurrence of # or space character.
-# conversion positions are appended to read id (MD-tag-like).
+# conversion positions are appended to read id (in hexadecimal).
 # if the resulting read id becomes longer than 250 chars (violates SAM
-# format specifications, happens if there are many converted positions,
-# sequencing artifact), the read is not converted.
+# format specifications, could happen with very long reads, the read is not converted.
 
 
 def mod_fqconv(sysargv):
@@ -126,33 +125,21 @@ def mod_fqconv(sysargv):
 			if f1: qual1 = l1
 			if f2: qual2 = l2
 
-			if f1:															# convert sequence and append positions to id (MD-tag style)
-				id += "."													
-				scount = 0
-				for s in seq1:
-					if s == cfrom1:
-						if scount > 0: id += "%i" % scount
-						scount = 0
-						id += "%s" % cfrom1
-						c[1] += 1
-					else: scount += 1
-				if scount > 0: id += "%i" % scount
+			if f1:															# convert sequence and append positions to id (in hexadecimal)
+				id += "."
+				c[1] += seq1.count(cfrom1)
+				id += hex(int(re.sub("\D", "0", re.sub(cfrom1, "1", seq1)), 2))[2:-1]
+				seq1 = re.sub(cfrom1, cto1, seq1)
 			if f2:
-				id += "."													# when creating interleaved fastq file, positions are added to both id lines (bwa-mem compatible)
-				scount = 0
-				for s in seq2:
-					if s == cfrom2:
-						if scount > 0: id += "%i" % scount
-						scount = 0
-						id += "%s" % cfrom2
-						c[1] += 1
-					else: scount += 1
-				if scount > 0: id += "%i" % scount			
+				id += "."
+				c[1] += seq2.count(cfrom2)
+				id += hex(int(re.sub("\D", "0", re.sub(cfrom2, "1", seq2)), 2))[2:-1]
+				seq2 = re.sub(cfrom2, cto2, seq2)	
 				
 			if len(id) >= 250:												# if id too long (SAM allows 255 characters)
 				id = id.split(".")[0] 
-				if f1: id += "." + "%i" % len(seq1)
-				if f2: id += "." + "%i" % len(seq2)
+				if f1: id += ".0"
+				if f2: id += ".0"
 				if wc < 100: sys.stderr.write("%s warning: %s is not converted (%s)\n" % (nicetime(), id, seq1))
 				if wc == 99: sys.stderr.write("%s warning: only showing 100 warnings\n" % nicetime())
 				wc += 1

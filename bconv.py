@@ -85,8 +85,8 @@ def mod_bconv(sysargv):
 		return read		
 		
 	def convert(p, s, r):													# p: conversion positions, s: sequence, r: is_reverse
-		pp = bin(int(p, 16))[2:]
-		pp = "0" * (len(s)-len(p)) + pp
+		pp = bin(int(p, 16)).lstrip("0b")
+		pp = "0" * (len(s)-len(pp)) + pp
 		if r: pp = pp[::-1]
 		for i in re.finditer("1", pp):
 			pi = i.start()

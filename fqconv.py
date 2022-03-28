@@ -129,13 +129,13 @@ def mod_fqconv(sysargv):
 			if f1:															# convert sequence and append positions to id (in hexadecimal)
 				id += "."
 				c[1] += seq1.count(cfrom1)
-				id += hex(int(re.sub("\D", "0", re.sub(cfrom1, "1", seq1)), 2))[2:-1]
+				id += hex(int(re.sub("\D", "0", re.sub(cfrom1, "1", seq1)), 2)).lstrip("0x").rstrip("L")
 				if id[-1] == ".": id += "0"
 				seq1 = re.sub(cfrom1, cto1, seq1)
 			if f2:
 				id += "."
 				c[1] += seq2.count(cfrom2)
-				id += hex(int(re.sub("\D", "0", re.sub(cfrom2, "1", seq2)), 2))[2:-1]
+				id += hex(int(re.sub("\D", "0", re.sub(cfrom2, "1", seq2)), 2)).lstrip("0x").rstrip("L")
 				if id[-1] == ".": id += "0"
 				seq2 = re.sub(cfrom2, cto2, seq2)	
 				
